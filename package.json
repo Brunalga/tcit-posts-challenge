@@ -1,0 +1,26 @@
+{
+  "name": "tcit-posts-challenge",
+  "version": "1.0.0",
+  "private": true,
+  "description": "TCIT Cloud Solutions web developer challenge — Posts app (React/Redux frontend, NestJS/Prisma backend, PostgreSQL)",
+  "scripts": {
+    "db:up": "docker compose up -d db",
+    "install:all": "pnpm --prefix backend install && pnpm --prefix frontend install",
+    "seed": "pnpm --prefix backend run seed",
+    "start:backend": "pnpm --prefix backend run dev",
+    "start:frontend": "pnpm --prefix frontend run dev",
+    "start": "concurrently --names \"backend,frontend\" --prefix-colors \"cyan,magenta\" \"pnpm run start:backend\" \"pnpm run start:frontend\"",
+    "build:backend": "pnpm --prefix backend run build",
+    "build:frontend": "pnpm --prefix frontend run build",
+    "build": "pnpm run build:backend && pnpm run build:frontend",
+    "test:backend": "pnpm --prefix backend run test && pnpm --prefix backend run test:e2e",
+    "test:frontend": "pnpm --prefix frontend run test",
+    "test": "pnpm run test:backend && pnpm run test:frontend",
+    "typecheck:backend": "pnpm --prefix backend run typecheck",
+    "typecheck:frontend": "pnpm --prefix frontend run typecheck",
+    "typecheck": "pnpm run typecheck:backend && pnpm run typecheck:frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
