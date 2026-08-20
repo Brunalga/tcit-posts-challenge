@@ -1,5 +1,5 @@
 # --- deps: install once, cached across builds unless package*.json changes
-FROM node:20-alpine AS deps
+FROM node:22-alpine AS deps
 WORKDIR /app
 RUN corepack enable
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
@@ -7,7 +7,7 @@ COPY prisma ./prisma
 RUN pnpm install --frozen-lockfile && pnpm prisma generate
 
 # --- build: compile Nest (tsc) -> dist/main.js
-FROM node:20-alpine AS build
+FROM node:22-alpine AS build
 WORKDIR /app
 RUN corepack enable
 COPY --from=deps /app/node_modules ./node_modules
@@ -15,7 +15,7 @@ COPY . .
 RUN pnpm build
 
 # --- runtime: slim image, prod deps only
-FROM node:20-alpine AS runtime
+FROM node:22-alpine AS runtime
 WORKDIR /app
 RUN corepack enable
 ENV NODE_ENV=production

@@ -7,7 +7,9 @@ on:
 
 env:
   PNPM_VERSION: 11.2.2
-  NODE_VERSION: 20
+  # pnpm 11.2.2 requires Node >=22.13 (fails with ERR_UNKNOWN_BUILTIN_MODULE
+  # on node:sqlite otherwise) — matches what's used locally throughout.
+  NODE_VERSION: 22
 
 jobs:
   backend:

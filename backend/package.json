@@ -4,7 +4,7 @@
   "private": true,
   "description": "Posts API (NestJS + Prisma/PostgreSQL) with idempotent creates",
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.13.0"
   },
   "packageManager": "pnpm@11.2.2",
   "scripts": {
