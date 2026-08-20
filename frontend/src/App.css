@@ -1,0 +1,448 @@
+.app {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem 4rem;
+}
+
+/* ---------- header ---------- */
+
+.app-header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(120deg, var(--color-primary) 0%, #b750e0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.app-subtitle {
+  margin: 0.4rem 0 0;
+  color: var(--color-muted);
+  font-size: 1rem;
+}
+
+/* ---------- shared card ---------- */
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.card h2 {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* ---------- inputs & buttons (shared look) ---------- */
+
+input[type='text'] {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font: inherit;
+  color: var(--color-text);
+  background: #fbfbff;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+input[type='text']::placeholder {
+  color: #a5a2c2;
+}
+
+input[type='text']:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background: #ffffff;
+  box-shadow: 0 0 0 4px var(--color-primary-soft);
+}
+
+button {
+  font: inherit;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition:
+    transform 0.1s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease,
+    opacity 0.15s ease;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+button:not(:disabled):active {
+  transform: scale(0.97);
+}
+
+/* ---------- filter ---------- */
+
+.post-filter {
+  position: sticky;
+  top: 1rem;
+  z-index: 20;
+  margin-bottom: 1.5rem;
+}
+
+.post-filter-icon {
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.95rem;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.post-filter input {
+  padding-left: 2.4rem;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+/* ---------- post list card ---------- */
+
+.post-list-card {
+  padding: 1.25rem 1.25rem 0.5rem;
+}
+
+.post-list-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.post-list-header h2 {
+  margin: 0;
+}
+
+.post-count-badge {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-hover);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+}
+
+.post-table-scroll {
+  overflow-x: auto;
+  margin: 0 -1.25rem;
+  padding: 0 1.25rem;
+}
+
+.post-list-load-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1em;
+  padding: 1.25rem 0;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.post-list {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.post-list th {
+  text-align: left;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-muted);
+  font-weight: 700;
+  padding: 0 0.75rem 0.6rem;
+  border-bottom: 1.5px solid var(--color-border);
+}
+
+/* Action buttons sit flush-right in their cell (.post-actions below), so
+   their header needs to line up the same way instead of sitting at the
+   left edge of a column that's mostly empty space. */
+.post-list th:last-child {
+  text-align: right;
+}
+
+.post-list td {
+  padding: 0.85rem 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.post-list tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.post-list tbody tr:not(.post-row-editing):hover {
+  background: #faf9ff;
+}
+
+.post-name-cell {
+  font-weight: 700;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+.post-description-cell {
+  color: var(--color-muted);
+}
+
+.post-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  white-space: nowrap;
+}
+
+.btn-edit,
+.btn-delete {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.85rem;
+}
+
+.btn-edit {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-hover);
+}
+
+.btn-edit:hover:not(:disabled) {
+  background: #e2dcfc;
+}
+
+.btn-delete {
+  background: var(--color-danger-soft);
+  color: var(--color-danger-hover);
+}
+
+.btn-delete:hover:not(:disabled) {
+  background: #ffd6e0;
+}
+
+/* ---------- delete confirmation modal ---------- */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 27, 58, 0.45);
+  backdrop-filter: blur(2px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  z-index: 100;
+  animation: fade-in 0.15s ease;
+}
+
+.modal-dialog {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  padding: 1.75rem;
+  max-width: 400px;
+  width: 100%;
+  animation: pop-in 0.15s ease;
+}
+
+.modal-dialog h2 {
+  margin: 0 0 0.6rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.modal-dialog p {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+
+.modal-actions .btn-cancel,
+.modal-actions .btn-delete-confirm {
+  padding: 0.6rem 1.1rem;
+}
+
+.btn-delete-confirm {
+  background: var(--color-danger);
+  color: #ffffff;
+}
+
+.btn-delete-confirm:hover:not(:disabled) {
+  background: var(--color-danger-hover);
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(4px);
+  }
+}
+
+/* ---------- inline edit row ---------- */
+
+.post-row-editing td {
+  background: var(--color-primary-soft);
+  padding: 1rem 0.75rem;
+}
+
+.post-edit-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+
+.post-edit-form input {
+  flex: 1;
+  min-width: 160px;
+  background: #ffffff;
+}
+
+.post-edit-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.btn-save {
+  padding: 0.7rem 1.1rem;
+  background: var(--color-success);
+  color: #ffffff;
+}
+
+.btn-save:hover:not(:disabled) {
+  background: #129f80;
+}
+
+.btn-cancel {
+  padding: 0.7rem 1.1rem;
+  background: var(--color-surface);
+  color: var(--color-muted);
+  border: 1.5px solid var(--color-border) !important;
+}
+
+.btn-cancel:hover:not(:disabled) {
+  background: #f4f3fb;
+}
+
+/* ---------- status states ---------- */
+
+.post-list-status {
+  text-align: center;
+  color: var(--color-muted);
+  padding: 2.25rem 1rem;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.post-list-error {
+  color: var(--color-danger-hover);
+}
+
+.spinner {
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  border: 2px solid var(--color-primary-soft);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  vertical-align: -0.15em;
+  margin-right: 0.4em;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ---------- create form ---------- */
+
+.post-form-card {
+  background: linear-gradient(135deg, #ffffff 0%, #faf8ff 100%);
+}
+
+.post-form {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+
+.post-form input {
+  flex: 1;
+  min-width: 160px;
+}
+
+.btn-primary {
+  padding: 0.7rem 1.4rem;
+  background: linear-gradient(120deg, var(--color-primary) 0%, #8a5cf6 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(109, 94, 248, 0.35);
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow: 0 6px 18px rgba(109, 94, 248, 0.45);
+  transform: translateY(-1px);
+}
+
+.form-error {
+  flex-basis: 100%;
+  color: var(--color-danger-hover);
+  background: var(--color-danger-soft);
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md);
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 520px) {
+  .app {
+    padding: 2rem 1rem 3rem;
+  }
+
+  .app-header h1 {
+    font-size: 2rem;
+  }
+
+  .post-actions {
+    justify-content: flex-start;
+  }
+}
