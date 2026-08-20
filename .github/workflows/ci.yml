@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+env:
+  PNPM_VERSION: 11.2.2
+  NODE_VERSION: 20
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    # Matches tcit_posts_test exactly, so backend/package.json's test:e2e
+    # (which hardcodes DATABASE_URL to that DB — see README) works unchanged
+    # in CI, same command as local dev.
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: tcit_posts_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d tcit_posts_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+          cache-dependency-path: backend/pnpm-lock.yaml
+
+      - name: Install dependencies
+        working-directory: backend
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        working-directory: backend
+        run: pnpm typecheck
+
+      - name: Lint
+        working-directory: backend
+        run: pnpm lint
+
+      - name: Unit tests
+        working-directory: backend
+        run: pnpm test
+
+      - name: E2e tests (against the Postgres service container)
+        working-directory: backend
+        run: pnpm run test:e2e
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: ${{ env.PNPM_VERSION }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+          cache-dependency-path: frontend/pnpm-lock.yaml
+
+      - name: Install dependencies
+        working-directory: frontend
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        working-directory: frontend
+        run: pnpm typecheck
+
+      - name: Lint
+        working-directory: frontend
+        run: pnpm lint
+
+      - name: Tests
+        working-directory: frontend
+        run: pnpm test
