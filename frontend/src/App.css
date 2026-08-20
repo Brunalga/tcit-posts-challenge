@@ -433,16 +433,82 @@ button:not(:disabled):active {
 
 /* ---------- responsive ---------- */
 
-@media (max-width: 520px) {
+@media (max-width: 640px) {
   .app {
-    padding: 2rem 1rem 3rem;
+    padding: 1.5rem 1rem 3rem;
   }
 
   .app-header h1 {
     font-size: 2rem;
   }
 
+  .card {
+    padding: 1.1rem;
+  }
+
+  /* The 3-column table (+ two action buttons) doesn't fit a phone width —
+     turn each row into a stacked card instead of relying on horizontal
+     scroll to hide content. Still real <tr>/<td> elements underneath, just
+     restyled, so nothing in the component or tests (which query via
+     .closest('tr') / getByRole) needs to change. */
+  .post-table-scroll {
+    overflow-x: visible;
+    margin: 0;
+    padding: 0;
+  }
+
+  .post-list,
+  .post-list tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .post-list thead {
+    display: none;
+  }
+
+  .post-list tr {
+    display: block;
+  }
+
+  .post-list tbody tr:not(.post-row-editing) {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.85rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .post-list tbody tr:not(.post-row-editing):last-child {
+    margin-bottom: 0;
+  }
+
+  .post-list td {
+    display: block;
+    border-bottom: none;
+    padding: 0;
+  }
+
+  .post-name-cell {
+    white-space: normal;
+    font-size: 1.02rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .post-description-cell {
+    margin-bottom: 0.85rem;
+  }
+
   .post-actions {
-    justify-content: flex-start;
+    justify-content: stretch;
+  }
+
+  .post-actions .btn-edit,
+  .post-actions .btn-delete {
+    flex: 1;
+    text-align: center;
+  }
+
+  .post-row-editing td {
+    padding: 0.85rem;
   }
 }
